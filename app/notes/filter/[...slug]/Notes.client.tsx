@@ -11,13 +11,15 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import { fetchNotes } from "@/lib/api";
 import { FetchNotesResponse } from "@/lib/api";
 import { Note } from "@/types/note";
+import type { NoteTag } from "@/types/note";
 
 type NotesProps = {
+  tag: NoteTag;
   notes: Note[];
   totalPages: number;
 };
 
-function Notes({ notes, totalPages }: NotesProps) {
+function Notes({ tag, notes, totalPages }: NotesProps) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
