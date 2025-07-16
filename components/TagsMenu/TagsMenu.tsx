@@ -1,3 +1,5 @@
+"use client";
+
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
 import type { NoteTag } from "@/types/note";
@@ -5,9 +7,12 @@ import type { NoteTag } from "@/types/note";
 const tags: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
 export default function TagsMenu() {
+  const handleClick = () => {};
   return (
     <div className={css.menuContainer}>
-      <button className={css.menuButton}>Notes ▾</button>
+      <button className={css.menuButton} onClick={handleClick}>
+        Notes ▾
+      </button>
       <ul className={css.menuList}>
         <li className={css.menuItem}>
           <Link href={`notes/filter/All`} className={css.menuLink}>

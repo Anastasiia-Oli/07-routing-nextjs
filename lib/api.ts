@@ -28,6 +28,11 @@ export async function fetchNotes(
     params.search = query;
   }
 
+  console.log("FETCHING:", {
+    params,
+    headers: { Authorization: `Bearer ${API_KEY}` },
+  });
+
   const response = await axios.get<FetchNotesResponse>(BASE_URL, {
     params,
     headers: {

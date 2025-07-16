@@ -14,7 +14,7 @@ import { Note } from "@/types/note";
 import type { NoteTag } from "@/types/note";
 
 type NotesProps = {
-  tag: NoteTag;
+  tag?: NoteTag;
   notes: Note[];
   totalPages: number;
 };
@@ -26,8 +26,8 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
   const [debouncedQuery] = useDebounce(query, 300);
 
   const { data } = useQuery<FetchNotesResponse>({
-    queryKey: ["notes", debouncedQuery, page],
-    queryFn: () => fetchNotes(debouncedQuery, page),
+    queryKey: ["notes", debouncedQuery, page, tag],
+    queryFn: () => fetchNotes(debouncedQuery, page, tag),
     // enabled: debouncedQuery !== "",
     placeholderData: keepPreviousData,
     initialData:
