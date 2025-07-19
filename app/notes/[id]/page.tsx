@@ -3,9 +3,9 @@ import { fetchNoteById } from "@/lib/api";
 import NoteDetails from "./NoteDetails.client";
 
 type NoteDetailsPageProps = {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 };
 
 const NoteDetailsPage = async ({ params }: NoteDetailsPageProps) => {
