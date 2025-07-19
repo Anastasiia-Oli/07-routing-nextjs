@@ -11,7 +11,7 @@ type NoteDetailsPageProps = {
 const NoteDetailsPage = async ({ params }: NoteDetailsPageProps) => {
   const queryClient = new QueryClient();
   const { id } = await params;
-  const noteId = Number(id);
+  const noteId = String(id);
 
   await queryClient.prefetchQuery({
     queryKey: ["note", noteId],

@@ -14,7 +14,7 @@ type NoteDetailsProps = {
 
 export default function NoteDetails({ dehydratedState }: NoteDetailsProps) {
   const params = useParams();
-  const id = Number(params.id);
+  const id = String(params.id);
 
   return (
     <HydrationBoundary state={dehydratedState}>
@@ -23,7 +23,7 @@ export default function NoteDetails({ dehydratedState }: NoteDetailsProps) {
   );
 }
 
-const InnerNoteDetails = ({ id }: { id: number }) => {
+const InnerNoteDetails = ({ id }: { id: string }) => {
   const {
     data: note,
     isLoading,
