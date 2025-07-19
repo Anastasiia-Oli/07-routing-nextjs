@@ -2,7 +2,7 @@ import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.module.css";
 type Props = {
-  params: { id: number };
+  params: { id: string };
 };
 
 const NotePreview = async ({ params }: Props) => {
