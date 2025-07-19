@@ -6,7 +6,7 @@ type NotePreviewProps = {
 };
 
 export default async function Page({ params }: NotePreviewProps) {
-  const { id } = await params;
+  const { id } = params;
   const note = await fetchNoteById(id);
   return (
     <Modal>
