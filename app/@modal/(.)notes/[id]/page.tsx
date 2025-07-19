@@ -1,11 +1,11 @@
 import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.module.css";
-type NotePreviewProps = {
-  params: { id: string };
-};
+// type NotePreviewProps = {
+//   params: { id: string };
+// };
 
-const NotePreview = async ({ params }: NotePreviewProps) => {
+export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
   const note = await fetchNoteById(id);
   return (
@@ -19,5 +19,4 @@ const NotePreview = async ({ params }: NotePreviewProps) => {
       <span className={css.tag}>{note.tag}</span>
     </Modal>
   );
-};
-export default NotePreview;
+}
