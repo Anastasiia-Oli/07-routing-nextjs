@@ -6,7 +6,7 @@ type Props = {
 };
 
 const NotePreview = async ({ params }: Props) => {
-  const { id } = await params;
+  const { id } = params;
   const note = await fetchNoteById(id);
   return (
     <Modal>
