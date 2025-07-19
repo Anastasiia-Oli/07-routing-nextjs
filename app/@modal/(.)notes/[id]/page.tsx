@@ -6,7 +6,8 @@ import css from "./NotePreview.module.css";
 // };
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
+  console.log("++++", params);
+  const { id } = await params;
   const note = await fetchNoteById(id);
   return (
     <Modal>
