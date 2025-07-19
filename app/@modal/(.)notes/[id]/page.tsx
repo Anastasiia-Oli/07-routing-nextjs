@@ -1,15 +1,22 @@
 import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
+import css from "./NotePreview.module.css";
 type Props = {
   params: { id: number };
 };
+
 const NotePreview = async ({ params }: Props) => {
   const { id } = await params;
   const note = await fetchNoteById(id);
   return (
     <Modal>
-      <h2>{note.title}</h2>
-      <p>{note.content}</p>
+      <div className={css.header}>
+        <h2>{note.title}</h2>
+        <button className={css.editBtn}>Edit note</button>
+      </div>
+      <p className={css.content}>{note.content}</p>
+      <p className={css.date}>{note.createdAt}</p>
+      <span className={css.tag}>{note.tag}</span>
     </Modal>
   );
 };
