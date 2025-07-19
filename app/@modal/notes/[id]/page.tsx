@@ -2,7 +2,7 @@ import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
 
 type Props = {
-  params: Promise<{ id: number }>;
+  params: { id: number };
 };
 
 const NotePreview = async ({ params }: Props) => {

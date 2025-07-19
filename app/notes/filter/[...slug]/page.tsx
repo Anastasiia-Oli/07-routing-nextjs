@@ -7,10 +7,13 @@ type Props = {
 };
 
 export default async function NotesPage({ params }: Props) {
-  const slugArray = params.slug;
-  const tag = Array.isArray(slugArray) ? (slugArray[0] as NoteTag) : undefined;
+  const slugArray = params.slug?.[0];
+  const tagForApi =
+    slugArray === "All" ? undefined : (slugArray as NoteTag | undefined);
+  const tag =
+    slugArray === "All" ? undefined : (slugArray as NoteTag | undefined);
 
-  const initialData = await fetchNotes("", 1);
+  const initialData = await fetchNotes("", 1, tagForApi);
   return (
     <Notes
       tag={tag}
