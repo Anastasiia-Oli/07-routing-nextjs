@@ -3,11 +3,11 @@ import Notes from "./Notes.client";
 import { fetchNotes } from "@/lib/api";
 
 type Props = {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[] }>;
 };
 
 export default async function NotesPage({ params }: Props) {
-  const slugArray = params.slug?.[0];
+  const slugArray = (await params).slug?.[0];
   const tagForApi =
     slugArray === "All" ? undefined : (slugArray as NoteTag | undefined);
   const tag =

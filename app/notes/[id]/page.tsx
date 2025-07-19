@@ -3,14 +3,12 @@ import { fetchNoteById } from "@/lib/api";
 import NoteDetails from "./NoteDetails.client";
 
 type NoteDetailsPageProps = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 const NoteDetailsPage = async ({ params }: NoteDetailsPageProps) => {
   const queryClient = new QueryClient();
-  const { id } = params;
+  const { id } = await params;
   const noteId = String(id);
 
   await queryClient.prefetchQuery({
