@@ -6,7 +6,8 @@ import { useDebounce } from "use-debounce";
 import css from "./Notes.module.css";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
-import NoteModal from "@/components/NoteModal/NoteModal";
+import Modal from "@/components/Modal/Modal";
+import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { fetchNotes } from "@/lib/api";
 import { FetchNotesResponse } from "@/lib/api";
@@ -56,7 +57,11 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
       )}
       {data?.notes.length === 0 && <p>No notes found</p>}
       {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && <NoteModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <NoteForm onCancel={() => setIsModalOpen(false)} />
+        </Modal>
+      )}
     </div>
   );
 }
