@@ -12,26 +12,22 @@ export interface FetchNotesResponse {
 export async function fetchNotes(
   query: string,
   page: number,
-  tag?: NoteTag
+  tag?: Exclude<NoteTag, "All">
 ): Promise<FetchNotesResponse> {
   const params: Record<string, string | number> = {
     page: page,
     perPage: 12,
   };
 
-  if (tag) {
+  if (tag && tag !== undefined) {
     params.tag = tag;
   }
 
-  if (query.trim() !== "") {
-    // add .trim() later
+  if (query && query.trim() !== "") {
     params.search = query;
   }
 
-  console.log("FETCHING:", {
-    params,
-    headers: { Authorization: `Bearer ${API_KEY}` },
-  });
+  console.log("Request params:", params);
 
   const response = await axios.get<FetchNotesResponse>(BASE_URL, {
     params,

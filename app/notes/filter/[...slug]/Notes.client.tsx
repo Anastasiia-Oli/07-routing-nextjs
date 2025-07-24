@@ -20,7 +20,7 @@ type NotesProps = {
   totalPages: number;
 };
 
-function Notes({ tag, notes, totalPages }: NotesProps) {
+function Notes({ tag }: NotesProps) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,8 +31,12 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
     queryFn: () => fetchNotes(debouncedQuery, page, tag),
     // enabled: debouncedQuery !== "",
     placeholderData: keepPreviousData,
-    initialData:
-      page === 1 && debouncedQuery === "" ? { notes, totalPages } : undefined!,
+    // initialData:
+    //   page === 1 && debouncedQuery === "" ? { notes, totalPages } : undefined!,
+    // ...(page === 1 &&
+    //   debouncedQuery === "" && {
+    //     initialData: { notes, totalPages },
+    //   }),
   });
 
   const handleSearch = (searchQuery: string) => {
