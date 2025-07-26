@@ -39,7 +39,19 @@ const Modal = ({ children, onClose }: Props) => {
       role="dialog"
       aria-modal="true"
     >
-      <div className={css.modal}>{children}</div>
+      <div className={css.modal}>
+        {onClose && (
+          <button
+            type="button"
+            className={css.backBtn}
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            x
+          </button>
+        )}
+        {children}
+      </div>
     </div>,
     document.body
   );
