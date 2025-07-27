@@ -26,20 +26,16 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [debouncedQuery] = useDebounce(query, 300);
 
+  const shouldUseInitialData = page === 1 && debouncedQuery === "";
+  const initialData: FetchNotesResponse = { notes, totalPages };
+
   const { data } = useQuery<FetchNotesResponse>({
-    queryKey: ["notes", debouncedQuery, page, tag ?? null],
+    queryKey: ["notes", debouncedQuery, page, tag],
     queryFn: () => fetchNotes(debouncedQuery, page, tag),
     // enabled: debouncedQuery !== "",
     placeholderData: keepPreviousData,
-    // initialData:
-    //   page === 1 && debouncedQuery === "" ? { notes, totalPages } : undefined!,
-    ...(page === 1 &&
-      debouncedQuery === "" && {
-        initialData: { notes, totalPages },
-      }),
+    ...(shouldUseInitialData && { initialData }),
   });
-
-  const currentData = data ?? { notes: [], totalPages: 1 };
 
   const handleSearch = (searchQuery: string) => {
     setQuery(searchQuery);
@@ -54,17 +50,15 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
           Create note +
         </button>
       </header>
-      {currentData.totalPages > 1 && (
+      {data && data.totalPages > 1 && (
         <Pagination
           page={page}
-          totalPages={currentData.totalPages}
+          totalPages={data.totalPages}
           onPageChange={setPage}
         />
       )}
-      {currentData.notes.length === 0 && <p>No notes found</p>}
-      {currentData.notes && currentData.notes.length > 0 && (
-        <NoteList notes={currentData.notes} />
-      )}
+      {data?.notes.length === 0 && <p>No notes found</p>}
+      {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <NoteForm onCancel={() => setIsModalOpen(false)} />
