@@ -11,23 +11,22 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { fetchNotes } from "@/lib/api";
 import { FetchNotesResponse } from "@/lib/api";
-import { Note } from "@/types/note";
 import type { NoteTag } from "@/types/note";
 
 type NotesProps = {
   tag?: NoteTag;
-  notes: Note[];
-  totalPages: number;
+  initialData: FetchNotesResponse;
+  // notes: Note[];
+  // totalPages: number; - FetchNotesResponse
 };
 
-function Notes({ tag, notes, totalPages }: NotesProps) {
+function Notes({ tag, initialData }: NotesProps) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [debouncedQuery] = useDebounce(query, 300);
 
   const shouldUseInitialData = page === 1 && debouncedQuery === "";
-  const initialData: FetchNotesResponse = { notes, totalPages };
 
   const { data } = useQuery<FetchNotesResponse>({
     queryKey: ["notes", debouncedQuery, page, tag],
@@ -61,7 +60,7 @@ function Notes({ tag, notes, totalPages }: NotesProps) {
       {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onCancel={() => setIsModalOpen(false)} />
+          <NoteForm onClose={() => setIsModalOpen(false)} />
         </Modal>
       )}
     </div>
